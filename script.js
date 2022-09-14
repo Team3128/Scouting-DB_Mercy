@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
-import { getDatabase, ref, onValue, get, set, child } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js"
+import { getDatabase, ref, set, child } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js"
         const firebaseConfig = {
           apiKey: "AIzaSyAO1aIe_fTZB6duj8YIRyYcLTINlcP196w",
           authDomain: "escouting-7b4e0.firebaseapp.com",
@@ -19,9 +19,16 @@ import { getDatabase, ref, onValue, get, set, child } from "https://www.gstatic.
         
   const db = getDatabase();
 
-function Upload_Data(){
-    for(var i=0;i<1;i++){
-        var data = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22".split(',');
+  var match_number = 300;
+  var color = ['blue', 'red'];
+  var robot = ['0','1','2'];
+  var updates = [];
+  var updates_index = 0;
+  var collection = ['B1','B2','B3','R1','R2','R3'];
+
+function uploadData() {
+    for(var i=0;i<6;i++){
+        var data = document.getElementById(collection[i]).value.split(',');
         
         var json_data = 
         {
@@ -47,8 +54,13 @@ function Upload_Data(){
             "Y": data[19],
             "YEET distance": data[20]
         };
-
-        set(child(ref(db, 'Events/CAPH22/matches/'), 'hello'), json_data)
+        updates.push(json_data);
+    }
+    for(var j=0;j<2;j++){
+      for(var g=0; g<3; g++){
+        set(child(ref(db, 'Events/CAPH22/matches/' + match_number + '/' + color[j] + '/'), robot[g]), updates[updates_index])
+        updates_index += 1;
+      }
     }
 }
-Upload_Data();
+document.getElementById("button").addEventListener("click", uploadData);
