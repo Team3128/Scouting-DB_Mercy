@@ -19,7 +19,7 @@ import { getDatabase, ref, set, child } from "https://www.gstatic.com/firebasejs
         
   const db = getDatabase();
 
-  var match_number = 400;
+  var match_number = 1;
   var color = ['blue', 'red'];
   var robot = ['0','1','2'];
   var updates = [];
@@ -69,5 +69,6 @@ function uploadData() {
         updates_index += 1;
       }
     }
+    match_number+=1;
 }
 document.getElementById("button").addEventListener("click", uploadData);
