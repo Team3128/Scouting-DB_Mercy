@@ -19,23 +19,16 @@ import { getDatabase, ref, set, child } from "https://www.gstatic.com/firebasejs
         
   const db = getDatabase();
 
-  var match_number = 1;
-  var color = ['blue', 'red'];
-  var robot = ['0','1','2'];
-  var updates = [];
-  var updates_index = 0;
-  var collection = ['B1','B2','B3','R1','R2','R3'];
-
 function uploadData() {
-    for(var i=0;i<6;i++){
-        var data = document.getElementById(collection[i]);
-        if(data.value == ''){
-          data = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '];
+    
+        var match_number = document.getElementById('matchnumber').value;
+        var color = document.getElementById('color').value;
+        var robot = document.getElementById('robot').value;
+        var data = document.getElementById('data').value.split(',');
+        if (match_number == '' || color == '' || robot == '' || data == ''){
+            alert("Not all fields are filled out!")
+            return;
         }
-        else{
-          data = data.value.split(',');
-        }
-
         var json_data = 
         {
             "A High": data[0],
@@ -60,15 +53,8 @@ function uploadData() {
             "Y": data[19],
             "YEET distance": data[20]
         };
-        updates.push(json_data);
-    }
+    
+        set(child(ref(db, 'Events/CAPH22/matches/' + match_number + '/' + color + '/'), robot), json_data);
 
-    for(var j=0;j<2;j++){
-      for(var g=0; g<3; g++){
-        set(child(ref(db, 'Events/CAPH22/matches/' + match_number + '/' + color[j] + '/'), robot[g]), updates[updates_index])
-        updates_index += 1;
-      }
-    }
-    match_number+=1;
 }
 document.getElementById("button").addEventListener("click", uploadData);
