@@ -19,7 +19,7 @@ import { getDatabase, ref, set, child } from "https://www.gstatic.com/firebasejs
         
   const db = getDatabase();
 
-  var match_number = 300;
+  var match_number = 400;
   var color = ['blue', 'red'];
   var robot = ['0','1','2'];
   var updates = [];
@@ -28,8 +28,14 @@ import { getDatabase, ref, set, child } from "https://www.gstatic.com/firebasejs
 
 function uploadData() {
     for(var i=0;i<6;i++){
-        var data = document.getElementById(collection[i]).value.split(',');
-        
+        var data = document.getElementById(collection[i]);
+        if(data.value == ''){
+          data = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '];
+        }
+        else{
+          data = data.value.split(',');
+        }
+
         var json_data = 
         {
             "A High": data[0],
@@ -56,6 +62,7 @@ function uploadData() {
         };
         updates.push(json_data);
     }
+
     for(var j=0;j<2;j++){
       for(var g=0; g<3; g++){
         set(child(ref(db, 'Events/CAPH22/matches/' + match_number + '/' + color[j] + '/'), robot[g]), updates[updates_index])
