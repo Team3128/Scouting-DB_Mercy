@@ -62,7 +62,7 @@ function uploadData() {
         };
         updates.push(json_data);
     }
-
+    match_number = Number(document.getElementById("Match_Number").value);
     for(var j=0;j<2;j++){
       for(var g=0; g<3; g++){
         set(child(ref(db, 'Events/CAPH22/matches/' + match_number + '/' + color[j] + '/'), robot[g]), updates[updates_index])
@@ -70,5 +70,6 @@ function uploadData() {
       }
     }
     match_number+=1;
+    document.getElementById("Match_Number").value = String(match_number);
 }
 document.getElementById("button").addEventListener("click", uploadData);
