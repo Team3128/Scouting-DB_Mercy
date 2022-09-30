@@ -52,7 +52,7 @@ function uploadData() {
           "Drivetrain Type": data[19],
           "Shooter Type": data[20]
         };
-        set(child(ref(db, 'Events/Test22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
+        set(child(ref(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
     }
 }
 document.getElementById("button").addEventListener("click", uploadData);
