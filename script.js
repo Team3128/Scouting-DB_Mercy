@@ -1,5 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
-import { getDatabase, ref, set, child } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js"
+
 const firebaseConfig = {
   apiKey: "AIzaSyAO1aIe_fTZB6duj8YIRyYcLTINlcP196w",
   authDomain: "escouting-7b4e0.firebaseapp.com",
@@ -12,10 +11,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const database = to(app);
 console.log("success")
 
-const db = getDatabase();
+const db = to();
 
 function uploadData() {
   var all_data = document.getElementById("input").value;
@@ -52,7 +51,7 @@ function uploadData() {
           "Drivetrain Type": data[19],
           "Shooter Type": data[20]
         };
-        set(child(ref(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
+        cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
     }
 }
 document.getElementById("button").addEventListener("click", uploadData);
