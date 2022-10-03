@@ -19,9 +19,10 @@ const db = to();
 function uploadData() {
   var all_data = document.getElementById("input").value;
   if(all_data == ''){
-    alert("Empty Push, Not Registered");
+    document.getElementById("status").innerHTML = "Empty Push, Not Registered";
     return;
   }
+  try{
   var sep_data = all_data.split(/\n/);
     for(var i=0;i<sep_data.length;i++){
       if(sep_data[i] == ''){
@@ -52,6 +53,11 @@ function uploadData() {
           "Shooter Type": data[20]
         };
         cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
+    }
+    document.getElementById("status").innerHTML = "Successful Upload";
+  }
+  catch(err){
+    document.getElementById("status").innerHTML = "ERROR" + err.message;
     }
 }
 document.getElementById("button").addEventListener("click", uploadData);
