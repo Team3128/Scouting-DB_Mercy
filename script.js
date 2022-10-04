@@ -64,5 +64,14 @@ function uploadData() {
         }
  
     }
+<<<<<<< Updated upstream
   }
 document.getElementById("button").addEventListener("click", uploadData);
+=======
+}
+document.getElementById("button").addEventListener("click", uploadData);
+document.getElementById("clear").addEventListener("click", ()=>{
+  document.getElementById("input").value = ''
+  console.log("received")
+})
+>>>>>>> Stashed changes
