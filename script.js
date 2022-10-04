@@ -17,47 +17,51 @@ console.log("success")
 const db = to();
 
 function uploadData() {
+  document.getElementById("status").innerHTML = "";
   var all_data = document.getElementById("input").value;
   if(all_data == ''){
     document.getElementById("status").innerHTML = "Empty Push, Not Registered";
     return;
   }
-  try{
+  
   var sep_data = all_data.split(/\n/);
     for(var i=0;i<sep_data.length;i++){
-      if(sep_data[i] == ''){
-        return;
+      try{
+        if(sep_data[i] == ''){
+          document.getElementById("status").innerHTML += "Empty Upload at scan " + String(Number(i)+1) + "<br>" ;
+          continue;
+        }
+          var data = sep_data[i].split(',');
+  
+          var json_data = 
+          { 
+            "Scout Name": data[2],
+            "Alliance Color": data[3],
+            "Taxi": data[4],
+            "Auto High": data[5],
+            "Auto Low": data[6],
+            "Auto Missed": data[7],
+            "Tele High": data[8],
+            "Tele Low": data[9],
+            "Tele Missed": data[10],
+            "Attempted Climb": data[11],
+            "Climb Level": data[12],
+            "Climb Time": data[13],
+            "Defence Time": data[14],
+            "Penalty": data[15],
+            "Yeet": data[16],
+            "Oof": data[17],
+            "QATA": data[18],
+            "Drivetrain Type": data[19],
+            "Shooter Type": data[20]
+          };
+          cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
+          document.getElementById("status").innerHTML += "Successful Upload at scan " + String(Number(i)+1) + "<br>" ;
       }
-        var data = sep_data[i].split(',');
-
-        var json_data = 
-        { 
-          "Scout Name": data[2],
-          "Alliance Color": data[3],
-          "Taxi": data[4],
-          "Auto High": data[5],
-          "Auto Low": data[6],
-          "Auto Missed": data[7],
-          "Tele High": data[8],
-          "Tele Low": data[9],
-          "Tele Missed": data[10],
-          "Attempted Climb": data[11],
-          "Climb Level": data[12],
-          "Climb Time": data[13],
-          "Defence Time": data[14],
-          "Penalty": data[15],
-          "Yeet": data[16],
-          "Oof": data[17],
-          "QATA": data[18],
-          "Drivetrain Type": data[19],
-          "Shooter Type": data[20]
-        };
-        cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
+      catch(err){
+        document.getElementById("status").innerHTML += "ERROR at scan "+ String(Number(i)+1) + ": " + err.message + "<br>";
+        }
+ 
     }
-    document.getElementById("status").innerHTML = "Successful Upload";
   }
-  catch(err){
-    document.getElementById("status").innerHTML = "ERROR" + err.message;
-    }
-}
 document.getElementById("button").addEventListener("click", uploadData);
