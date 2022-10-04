@@ -23,12 +23,11 @@ function uploadData() {
     document.getElementById("status").innerHTML = "Empty Push, Not Registered";
     return;
   }
-  
+  var scan_num = 1;
   var sep_data = all_data.split(/\n/);
     for(var i=0;i<sep_data.length;i++){
       try{
         if(sep_data[i] == ''){
-          document.getElementById("status").innerHTML += "Empty Upload at scan " + String(Number(i)+1) + "<br>" ;
           continue;
         }
           var data = sep_data[i].split(',');
@@ -56,10 +55,12 @@ function uploadData() {
             "Shooter Type": data[20]
           };
           cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
-          document.getElementById("status").innerHTML += "Successful Upload at scan " + String(Number(i)+1) + "<br>" ;
+          document.getElementById("status").innerHTML += "Successful Upload at scan " + String(scan_num) + "<br>" ;
+          scan_num +=1;
       }
       catch(err){
-        document.getElementById("status").innerHTML += "ERROR at scan "+ String(Number(i)+1) + ": " + err.message + "<br>";
+        document.getElementById("status").innerHTML += "ERROR at scan "+ String(scan_num) + ": " + err.message + "<br>";
+        scan_num +=1;
         }
  
     }
