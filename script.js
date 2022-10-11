@@ -15,7 +15,6 @@ const database = to(app);
 console.log("success")
 
 const db = to();
-
 function uploadData() {
   document.getElementById("status").innerHTML = "";
   var all_data = document.getElementById("input").value;
@@ -31,7 +30,7 @@ function uploadData() {
           continue;
         }
           var data = sep_data[i].split(',');
-  
+          //data[0] = robot number, data[1] = match number
           var json_data = 
           { 
             "Scout Name": data[2],
@@ -55,6 +54,7 @@ function uploadData() {
             "Shooter Type": data[20]
           };
           cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
+          cr(or(sr(db, `Events/RRTEST22/Matches/${data[1]}/${data[3]}/`)))
           document.getElementById("status").innerHTML += "Successful Upload at scan " + String(scan_num) + "<br>" ;
           scan_num +=1;
       }
