@@ -54,7 +54,7 @@ function uploadData() {
             "Shooter Type": data[20]
           };
           cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
-          cr(or(sr(db, `Events/RRTest22/Matches/${data[1]}/${data[3[0]]}/${data[3[1]]}/`)),json_data)
+          cr(or(sr(db, `Events/RRTest22/Matches/${data[1]}/${data[3[0]]}/`), data[3[1]]),json_data)
           document.getElementById("status").innerHTML += "Successful Upload at scan " + String(scan_num) + "<br>" ;
           scan_num +=1;
       }
