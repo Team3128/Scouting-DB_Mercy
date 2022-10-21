@@ -51,7 +51,8 @@ function uploadData() {
             "Oof": data[17],
             "QATA": data[18],
             "Drivetrain Type": data[19],
-            "Shooter Type": data[20]
+            "Shooter Type": data[20],
+            "ZMatch Number": data[1]
           };
           cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
           cr(or(sr(db, `Events/RRTest22/Matches/${data[1]}/${data[3][0]}/`), data[3][1]),json_data)
