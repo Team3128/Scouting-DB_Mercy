@@ -52,10 +52,11 @@ function uploadData() {
             "QATA": data[18],
             "Drivetrain Type": data[19],
             "Shooter Type": data[20],
-            "ZMatch Number": data[1]
+            "ZMatch Number": data[1],
+            "ZTeam": data[0]
           };
-          cr(or(sr(db, 'Events/RRTest22/Robots/' + data[0] + '/Scouting/'), data[1]), json_data)
-          cr(or(sr(db, `Events/RRTest22/Matches/${data[1]}/${data[3][0]}/`), data[3][1]),json_data)
+          cr(or(sr(db, 'Events/Test2022/Robots/' + data[0] + '/'), data[1]), json_data)
+          cr(or(sr(db, `Events/Test2022/Matches/`), (data[1] + "-" + data[3] + "-" + data[0])),json_data)
           document.getElementById("status").innerHTML += "Successful Upload at scan " + String(scan_num) + "<br>" ;
           scan_num +=1;
       }
