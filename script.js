@@ -31,6 +31,9 @@ function uploadData() {
         }
           var data = sep_data[i].split(',');
           //data[0] = robot number, data[1] = match number
+          if(data[1].length !=2){
+            data[1] = "0" + data[1];
+          }
           var json_data = 
           { 
             "Scout Name": data[2],
@@ -55,8 +58,9 @@ function uploadData() {
             "ZMatch Number": data[1],
             "ZTeam": data[0]
           };
+        
           cr(or(sr(db, 'Events/Test2022/Robots/' + data[0] + '/'), data[1]), json_data)
-          cr(or(sr(db, `Events/Test2022/Matches/`), (data[1] + "-" + data[3] + "-" + data[0])),json_data)
+          cr(or(sr(db, `Events/Test2022/Matches/`), (data[1] + "-" + data[3])),json_data)
           document.getElementById("status").innerHTML += "Successful Upload at scan " + String(scan_num) + "<br>" ;
           scan_num +=1;
       }
