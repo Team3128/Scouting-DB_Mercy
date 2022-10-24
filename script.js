@@ -22,18 +22,36 @@ function uploadData() {
     document.getElementById("status").innerHTML = "Empty Push, Not Registered";
     return;
   }
-  var scan_num = 1;
   var sep_data = all_data.split(/\n/);
-    for(var i=0;i<sep_data.length;i++){
+  var sort_dict = {}
+  var sort_arr = []
+  var sorted_data = []
+  for(var i=0;i<sep_data.length;i++){
+    if(sep_data[i] == ''){
+      continue;
+    }
+    var data = sep_data[i].split(',');
+      //data[0] = robot number, data[1] = match number
+      if(data[1].length !=2){
+        data[1] = "0" + data[1];
+      }
+      if(sort_dict.hasOwnProperty(data[1] + data[3])){
+        continue
+      }else{
+        sort_dict[data[1] + data[3]] = data
+        sort_arr.push(data[1] + data[3])
+      }
+  }
+
+  sort_arr.sort()
+  for(var i=0;i<sort_arr.length;i++){
+    sorted_data.push(sort_dict[sort_arr[i]])
+  }
+  
+  for(var i=0;i<sorted_data.length;i++){
       try{
-        if(sep_data[i] == ''){
-          continue;
-        }
-          var data = sep_data[i].split(',');
+          var data = sorted_data[i];
           //data[0] = robot number, data[1] = match number
-          if(data[1].length !=2){
-            data[1] = "0" + data[1];
-          }
           var json_data = 
           { 
             "Scout Name": data[2],
@@ -60,13 +78,14 @@ function uploadData() {
           };
         
           cr(or(sr(db, 'Events/Test2022/Robots/' + data[0] + '/'), data[1]), json_data)
+
+            hr(sr(db, 'Events/Test2022/Matches/' + data[1] + "-" + data[3] + "/"), json_data)
+
           cr(or(sr(db, `Events/Test2022/Matches/`), (data[1] + "-" + data[3])),json_data)
-          document.getElementById("status").innerHTML += "Successful Upload at scan " + String(scan_num) + "<br>" ;
-          scan_num +=1;
+          document.getElementById("status").innerHTML += "Successful Upload for " + data[1] + "-" + data[3] + "<br>" ;
       }
       catch(err){
-        document.getElementById("status").innerHTML += "ERROR at scan "+ String(scan_num) + ": " + err.message + "<br>";
-        scan_num +=1;
+        document.getElementById("status").innerHTML += "Failed Upload for "+ data[1] + "-" + data[3] + ": " + err.message + "<br>";
         }
  
     }
