@@ -76,7 +76,6 @@ function uploadData() {
             "ZMatch Number": data[1],
             "ZTeam": data[0]
           };
-            hr(sr(db, 'Events/Test2022/Robots/' + data[0] + "/" + data[1] + "/"), json_data)
 
           cr(or(sr(db, 'Events/Test2022/Robots/' + data[0] + '/'), data[1]), json_data)
 
