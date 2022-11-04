@@ -77,11 +77,11 @@ function uploadData() {
             "ZTeam": data[0]
           };
 
-          cr(or(sr(db, 'Events/Test2022/Robots/' + data[0] + '/'), data[1]), json_data)
+          cr(or(sr(db, 'Events/BB2022/Robots/' + data[0] + '/'), data[1]), json_data)
 
-            hr(sr(db, 'Events/Test2022/Matches/' + data[1] + "-" + data[3] + "/"), json_data)
+            hr(sr(db, 'Events/BB2022/Matches/' + data[1] + "-" + data[3] + "/"), json_data)
 
-          cr(or(sr(db, `Events/Test2022/Matches/`), (data[1] + "-" + data[3])),json_data)
+          cr(or(sr(db, `Events/BB2022/Matches/`), (data[1] + "-" + data[3])),json_data)
           document.getElementById("status").innerHTML += "Successful Upload for " + data[1] + "-" + data[3] + "<br>" ;
       }
       catch(err){
