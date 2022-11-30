@@ -54,6 +54,8 @@ function uploadData() {
           //data[0] = robot number, data[1] = match number
           var json_data = 
           { 
+            "Match Number": data[1],
+            "Team": data[0],
             "Scout Name": data[2],
             "Alliance Color": data[3],
             "Taxi": data[4],
@@ -72,9 +74,7 @@ function uploadData() {
             "Oof": data[17],
             "QATA": data[18],
             "Drivetrain Type": data[19],
-            "Shooter Type": data[20],
-            "ZMatch Number": data[1],
-            "ZTeam": data[0]
+            "Shooter Type": data[20]
           };
 
           cr(or(sr(db, 'Events/BB2022/Robots/' + data[0] + '/'), data[1]), json_data)
